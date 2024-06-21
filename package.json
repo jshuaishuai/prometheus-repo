@@ -1,0 +1,27 @@
+{
+  "name": "@repo/root",
+  "private": true,
+  "scripts": {
+    "bootstrap": "corepack pnpm install",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "dev:launcher": "pnpm -F @repo/launcher dev",
+    "postinstall": "turbo run unbuild:tool",
+    "stub": "turbo run stub",
+    "unbuild:tool": "turbo run unbuild:tool",
+    "lint": "turbo lint",
+    "test": "turbo run test",
+    "reinstall": "pnpm run clean && pnpm run bootstrap",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "prettier": "^3.2.5",
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

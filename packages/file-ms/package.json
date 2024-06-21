@@ -1,0 +1,30 @@
+{
+  "name": "@repo/file-ms",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "stub": "pnpm unbuild --stub",
+    "unbuild:tool": "pnpm unbuild --minify"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "unbuild": "^2.0.0"
+  }
+}
