@@ -6,6 +6,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "dev:launcher": "pnpm -F @repo/launcher dev",
+    "dev:ai": "pnpm -F @repo/ai dev",
     "postinstall": "turbo run unbuild:tool",
     "stub": "turbo run stub",
     "unbuild:tool": "turbo run unbuild:tool",
