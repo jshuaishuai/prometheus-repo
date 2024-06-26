@@ -67,7 +67,6 @@ const Sidebar = () => {
                     </div>
                     <h1 className={cn("text-2xl font-bold", montserrat.className)}>Prometheus</h1>
                 </Link>
-
                 <div className="flex flex-col item-center space-y-2 flex-1">
                     {
                         routes.map((route) => (
