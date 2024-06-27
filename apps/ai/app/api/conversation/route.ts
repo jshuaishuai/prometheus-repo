@@ -23,7 +23,7 @@ export async function POST(request: Request) {
             return new NextResponse('缺少消息', { status: 400 });
         }
 
-        const response = await openai.chat.completions.create({
+        const response: OpenAI.Chat.ChatCompletion = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages,
         });

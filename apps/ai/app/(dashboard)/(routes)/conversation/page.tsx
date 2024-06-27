@@ -7,17 +7,25 @@ import { z } from "zod"
 import axios from 'axios';
 import { useState } from "react";
 import { OpenAI } from 'openai';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // 选择一个代码高亮主题
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-
+import Loader from "@/components/loader";
+import UserAvatar from '@/components/user-avatar';
+import BotAvatar from "@/components/bot-avatar";
 import { formSchema } from './constants';
+import Empty from "@/components/empty";
+import { cn } from "@/lib/utils";
 
 const Conversation = () => {
 
 
     const [messages, setMessages] = useState<OpenAI.ChatCompletionMessage[]>([]);
+
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
@@ -33,24 +41,20 @@ const Conversation = () => {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values);
-
+        const userMessage = {
+            role: "user",
+            content: values.prompt
+        }
+        const newMessages = [...messages, userMessage];
         try {
-            const userMessage = {
-                role: "user",
-                content: values.prompt
-            }
-
-            const newMessages = [...messages, userMessage];
-
-
             const response = await axios.post('/api/conversation', {
                 messages: newMessages,
             })
             setMessages((current) => [...current, userMessage, response.data]);
 
             form.reset();
-        } catch (e) {
-            console.log('%c [ e ]-52', 'font-size:13px; background:pink; color:#bf2c9f;', e)
+        } catch (error: any) {
+            console.log(error);
 
         }
     }
@@ -66,7 +70,7 @@ const Conversation = () => {
                 iconColor="text-violet-500"
                 bgColor="bg-violet-500/10"
             />
-            <div className="">
+            <div className="px-4 lg:px-8">
                 <div>
                     <Form {...form} >
                         <form
@@ -97,7 +101,45 @@ const Conversation = () => {
                     </Form>
                 </div>
 
-                <div className="space-y-4 mt-4">contents</div>
+                <div className="space-y-4 mt-4">
+                    <div className="p-8">
+                        {isLoading && (
+                            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+                                <Loader />
+                            </div>
+                        )}
+                        {messages.length === 0 && !isLoading && <Empty label="Start typing to have a conversation." />}
+                        <div className="flex flex-col-reverse gap-y-4">
+                            {
+                                messages.map((message: any, index: number) => (
+                                    <div
+                                        key={index}
+                                        className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border borderblack/10" : "bg-muted")}>
+                                        <p>{message.role === "user" ? <UserAvatar /> : <BotAvatar />}</p>
+                                        <p><ReactMarkdown
+                                            components={{
+                                                code: ({ node, inline, className, children, ...props }) => {
+                                                    const match = /language-(\w+)/.exec(className || '');
+                                                    return !inline && match ? (
+                                                        <SyntaxHighlighter style={okaidia} language={match[1]} PreTag="div" {...props}>
+                                                            {String(children).replace(/\n$/, '')}
+                                                        </SyntaxHighlighter>
+                                                    ) : (
+                                                        <code className={className} {...props}>
+                                                            {children}
+                                                        </code>
+                                                    );
+                                                },
+                                            }}
+                                        >
+                                            {message.content}
+                                        </ReactMarkdown></p>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
