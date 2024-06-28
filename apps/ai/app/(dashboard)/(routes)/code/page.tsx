@@ -1,6 +1,6 @@
 "use client";
 import Heading from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -21,7 +21,7 @@ import { formSchema } from './constants';
 import Empty from "@/components/empty";
 import { cn } from "@/lib/utils";
 
-const Conversation = () => {
+const CodePage = () => {
 
 
     const [messages, setMessages] = useState<OpenAI.ChatCompletionMessage[]>([]);
@@ -47,7 +47,7 @@ const Conversation = () => {
         }
         const newMessages = [...messages, userMessage];
         try {
-            const response = await axios.post('/api/conversation', {
+            const response = await axios.post('/api/code', {
                 messages: newMessages,
             })
             setMessages((current) => [...current, userMessage, response.data]);
@@ -64,11 +64,11 @@ const Conversation = () => {
     return (
         <div>
             <Heading
-                title="Conversation"
-                description="Generate text using the power of AI."
-                icon={MessageSquare}
-                iconColor="text-violet-500"
-                bgColor="bg-violet-500/10"
+                title="Code Generation"
+                description="Our most advanced AI Code Generation model."
+                icon={Code}
+                iconColor="text-green-700"
+                bgColor="bg-green-700/10"
             />
             <div className="px-4 lg:px-8">
                 <div>
@@ -116,24 +116,26 @@ const Conversation = () => {
                                         key={index}
                                         className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border borderblack/10" : "bg-muted")}>
                                         <p>{message.role === "user" ? <UserAvatar /> : <BotAvatar />}</p>
-                                        <p><ReactMarkdown
-                                            components={{
-                                                code: ({ node, inline, className, children, ...props }) => {
-                                                    const match = /language-(\w+)/.exec(className || '');
-                                                    return !inline && match ? (
-                                                        <SyntaxHighlighter style={okaidia} language={match[1]} PreTag="div" {...props}>
-                                                            {String(children).replace(/\n$/, '')}
-                                                        </SyntaxHighlighter>
-                                                    ) : (
-                                                        <code className={className} {...props}>
-                                                            {children}
-                                                        </code>
-                                                    );
-                                                },
-                                            }}
-                                        >
-                                            {message.content || ""}
-                                        </ReactMarkdown></p>
+                                        <p className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                                            <ReactMarkdown
+                                                className="text-sm overflow-hidden leading-7"
+                                                components={{
+                                                    code: ({ node, inline, className, children, ...props }) => {
+                                                        const match = /language-(\w+)/.exec(className || '');
+                                                        return !inline && match ? (
+                                                            <SyntaxHighlighter style={okaidia} language={match[1]} PreTag="div" {...props}>
+                                                                {String(children).replace(/\n$/, '')}
+                                                            </SyntaxHighlighter>
+                                                        ) : (
+                                                            <code className={className} {...props}>
+                                                                {children}
+                                                            </code>
+                                                        );
+                                                    },
+                                                }}
+                                            >
+                                                {message.content || ""}
+                                            </ReactMarkdown></p>
                                     </div>
                                 ))
                             }
@@ -146,4 +148,4 @@ const Conversation = () => {
     );
 };
 
-export default Conversation;
+export default CodePage;
