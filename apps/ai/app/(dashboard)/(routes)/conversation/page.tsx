@@ -3,23 +3,24 @@ import Heading from "@/components/heading";
 import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import axios from 'axios';
 import { useState } from "react";
 import { OpenAI } from 'openai';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // 选择一个代码高亮主题
+import { z } from "zod"
+import axios from 'axios';
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import Loader from "@/components/loader";
 import UserAvatar from '@/components/user-avatar';
+import { Button } from "@/components/ui/button"
 import BotAvatar from "@/components/bot-avatar";
-import { formSchema } from './constants';
+import { Input } from "@/components/ui/input"
+import Loader from "@/components/loader";
 import Empty from "@/components/empty";
 import { cn } from "@/lib/utils";
+
+import { formSchema } from './constants';
 
 const Conversation = () => {
 
