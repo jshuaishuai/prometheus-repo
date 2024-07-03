@@ -151,7 +151,6 @@ const Conversation = () => {
                         </form>
                     </Form>
                 </div>
-
                 <div className="space-y-4 mt-4">
                     <div className="p-8">
                         {isLoading && (
@@ -160,7 +159,6 @@ const Conversation = () => {
                             </div>
                         )}
                         {images.length === 0 && !isLoading && <Empty label="Start typing to generate images." />}
-
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
                             {
                                 images.map((image, index) => (

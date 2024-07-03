@@ -1,5 +1,6 @@
 {
   "name": "@repo/root",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "bootstrap": "corepack pnpm install",
@@ -7,9 +8,11 @@
     "dev": "turbo dev",
     "dev:launcher": "pnpm -F @repo/launcher dev",
     "dev:ai": "pnpm -F @repo/ai dev",
+    "dev:plura": "pnpm -F @repo/plura dev",
     "postinstall": "turbo run unbuild:tool",
     "stub": "turbo run stub",
     "unbuild:tool": "turbo run unbuild:tool",
+    "clean": "toolkit clean -r false",
     "lint": "turbo lint",
     "test": "turbo run test",
     "reinstall": "pnpm run clean && pnpm run bootstrap",
@@ -17,6 +20,7 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "@repo/script-toolkit": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "prettier": "^3.2.5",
     "turbo": "latest"

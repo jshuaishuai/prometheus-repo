@@ -1,0 +1,36 @@
+{
+    "name": "@repo/script-toolkit",
+    "version": "0.1.0",
+    "private": true,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.mjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "bin": {
+        "toolkit": "./bin/toolkit.mjs"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "stub": "pnpm unbuild --stub",
+        "unbuild:tool": "pnpm unbuild --minify"
+    },
+    "dependencies": {
+        "@changesets/cli": "^2.26.1",
+        "@manypkg/get-packages": "^2.2.2",
+        "cac": "^6.7.14",
+        "prompts": "^2.4.2",
+        "rimraf": "^5.0.7",
+        "unbuild": "^1.2.1"
+    },
+    "devDependencies": {
+        "@types/prompts": "^2.4.4"
+    }
+}

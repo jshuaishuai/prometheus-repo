@@ -1,12 +1,11 @@
 {
-  "name": "@repo/file-ms",
+  "name": "@repo/upload-s3",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "stub": "pnpm unbuild --stub",
-    "unbuild:tool": "pnpm unbuild --minify"
+    "stub": "bun unbuild --stub",
+    "unbuild:tool": "bun unbuild --minify"
   },
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

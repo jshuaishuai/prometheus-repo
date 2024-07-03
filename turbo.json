@@ -4,7 +4,7 @@
     "**/.env.*local",
     "*/*/tsconfig.json"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": [
         "^build"
@@ -19,18 +19,28 @@
         "^lint"
       ]
     },
-    "clean":{
-      "dependsOn": ["^clean"],
+    "clean": {
+      "dependsOn": [
+        "^clean"
+      ],
       "cache": false
     },
     "stub": {
-      "dependsOn":["^stub"],
-      "outputs": ["dist/**"]
+      "dependsOn": [
+        "^stub"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
     },
     "unbuild:tool": {
-      "dependsOn": ["^unbuild:tool"],
-      "outputs": ["dist/**"]
-  },
+      "dependsOn": [
+        "^unbuild:tool"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true

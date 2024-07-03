@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Node App",
+    "extends": "./base.json",
+    "compilerOptions": {
+        "lib": [
+            "ESNext"
+        ],
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "baseUrl": "./",
+        "composite": false,
+        "declaration": true,
+        "declarationMap": true,
+        "allowSyntheticDefaultImports": true
+    }
+}
