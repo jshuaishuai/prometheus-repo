@@ -1,6 +1,6 @@
 
 import { cac } from 'cac';
-import { defineCommand } from './commands';
+import { defineCommand } from './commands/index.js';
 
 async function bootstrap() {
     const CLI_NAME = 'toolkit';

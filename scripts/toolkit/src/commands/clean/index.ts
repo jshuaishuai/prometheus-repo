@@ -2,6 +2,9 @@ import type { CAC } from 'cac';
 import { getPackages } from '@manypkg/get-packages';
 import { join } from 'node:path';
 import { rimraf } from 'rimraf';
+import ora from 'ora';
+
+const spinner = ora();
 
 const CLEAN_DIRS = ['dist', 'node_modules', '.turbo'];
 
@@ -15,7 +18,17 @@ export async function defineCleanCommand(cac: CAC) {
         })
         .action(async (dirs, options: RecursiveParams) => {
             const _dirs = !dirs || dirs.length === 0 ? CLEAN_DIRS : dirs;
-            await clean(_dirs, options);
+            const dirsString = JSON.stringify(_dirs);
+            spinner.start(`${dirsString}正在清理中...`);
+            try {
+                await clean(_dirs, options);
+                console.log('清理完成');
+            } catch (error) {
+                console.log('清理失败', error)
+            } finally {
+                spinner.stop();
+                spinner.clear();
+            }
 
 
         })

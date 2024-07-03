@@ -12,7 +12,7 @@
     "postinstall": "turbo run unbuild:tool",
     "stub": "turbo run stub",
     "unbuild:tool": "turbo run unbuild:tool",
-    "clean": "toolkit clean -r false",
+    "clean": "toolkit clean",
     "lint": "turbo lint",
     "test": "turbo run test",
     "reinstall": "pnpm run clean && pnpm run bootstrap",
