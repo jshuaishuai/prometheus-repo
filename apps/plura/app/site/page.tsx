@@ -68,7 +68,7 @@ export default function Home() {
                   <Link
                     href={`/agency?plan=${card.price}`}
                     className={cn("w-full text-center bg-primary p-2 rounded-md", {
-                      '!bg-muted-foreground': card.title! == 'Unlimited Saas'
+                      '!bg-muted-foreground': card.title !== 'Unlimited Saas'
                     })}
 
                   >

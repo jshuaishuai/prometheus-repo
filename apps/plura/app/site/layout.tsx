@@ -1,11 +1,15 @@
 import Navigation from "@/components/site";
+import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
 
-const layout = ({children}: {children: React.ReactNode}) => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main>
+    <ClerkProvider appearance={{ baseTheme: dark }}>
+      <main>
         <Navigation />
-      {children}
-    </main>
+        {children}
+      </main>
+    </ClerkProvider>
   );
 };
 
