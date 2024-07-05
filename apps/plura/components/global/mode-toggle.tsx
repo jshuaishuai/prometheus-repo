@@ -10,10 +10,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { db } from "@/lib/db";
 
 export function ModeToggle() {
   const { setTheme } = useTheme()
-
+  console.log('%c [ db ]-18', 'font-size:13px; background:pink; color:#bf2c9f;', db)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

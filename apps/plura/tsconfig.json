@@ -9,6 +9,8 @@
     "skipLibCheck": true,
     "strict": true,
     "incremental": true,
+    "module": "NodeNext",
+    "moduleResolution":"NodeNext",
     "paths": {
       "@/*": [
         "./*"
