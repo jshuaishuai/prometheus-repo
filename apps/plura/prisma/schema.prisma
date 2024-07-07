@@ -50,23 +50,25 @@ enum Icon {
 
 // 对应MYSQL类型
 
+// 用户表
 model User {
   id           String         @id @default(uuid())
-  name         String
-  avatarUrl    String         @db.Text // WIP: TEXT
-  email        String         @unique // WIP: 唯一值
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  role         Role           @default(SUBACCOUNT_USER)
+  name         String // 用户名
+  avatarUrl    String         @db.Text // WIP: TEXT  用户头像url
+  email        String         @unique // WIP: 唯一值  用户邮箱
+  createdAt    DateTime       @default(now()) // 用户创建时间
+  updatedAt    DateTime       @updatedAt // 用户更新时间
+  role         Role           @default(SUBACCOUNT_USER) // 用户角色
   agencyId     String?
   Agency       Agency?        @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  Permissions  Permissions[]
-  Ticket       Ticket[]
-  Notification Notification[]
+  Permissions  Permissions[] // 用户权限
+  Ticket       Ticket[] // 工单
+  Notification Notification[] // 通知
 
   @@index([agencyId])
 }
 
+// 权限表
 model Permissions {
   id           String     @id @default(uuid())
   email        String
@@ -367,13 +369,14 @@ enum InvitationStatus {
   PENDING
 }
 
+// 用于管理用户邀请
 model Invitation {
   id       String           @id @default(uuid())
   email    String           @unique
-  agencyId String
+  agencyId String // 所属的agency
   Agency   Agency           @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  status   InvitationStatus @default(PENDING)
-  role     Role             @default(SUBACCOUNT_USER)
+  status   InvitationStatus @default(PENDING) // 邀请状态
+  role     Role             @default(SUBACCOUNT_USER) // 被邀请用户的角色
 
   @@index([agencyId])
 }
